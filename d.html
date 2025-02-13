@@ -1,0 +1,309 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+    <title>给晓琨的第288次日落心动</title>
+    <style>
+        /* iOS专属优化 */
+        @supports (-webkit-touch-callout: none) {
+            body {
+                -webkit-overflow-scrolling: touch;
+                padding-bottom: env(safe-area-inset-bottom);
+            }
+            .letter-content {
+                backdrop-filter: none;
+                background: rgba(255,255,255,0.18);
+            }
+            #play-btn {
+                -webkit-appearance: none;
+                padding: 15px 45px !important;
+            }
+        }
+
+        body {
+            background: linear-gradient(135deg, #ff758c, #ff7eb3);
+            min-height: 100vh;
+            padding: 15px;
+            font-family: -apple-system, BlinkMacSystemFont, 'Microsoft Yahei', sans-serif;
+            color: #fff;
+            margin: 0;
+            overflow-x: hidden;
+            -webkit-tap-highlight-color: transparent;
+        }
+
+        .stars {
+            position: fixed;
+            width: 100%;
+            height: 100%;
+            top: 0;
+            left: 0;
+            pointer-events: none;
+            z-index: 0;
+        }
+
+        .star {
+            position: absolute;
+            width: 2px;
+            height: 2px;
+            background: rgba(255,255,255,0.8);
+            animation: twinkle 2s infinite;
+        }
+
+        @keyframes twinkle {
+            0%, 100% { opacity: 0.2; }
+            50% { opacity: 1; }
+        }
+
+        .hearts {
+            position: fixed;
+            width: 100%;
+            height: 100%;
+            top: 0;
+            left: 0;
+            pointer-events: none;
+            z-index: 1;
+        }
+
+        .heart {
+            position: absolute;
+            animation: fall linear infinite;
+            opacity: 0.7;
+            font-size: 24px;
+            will-change: transform;
+            transform: translate3d(0,0,0);
+        }
+
+        @keyframes fall {
+            0% { transform: translate3d(0, -20vh, 0) rotate(45deg); opacity: 0; }
+            100% { transform: translate3d(0, 120vh, 0) rotate(45deg); opacity: 0.4; }
+        }
+
+        .container {
+            width: 100%;
+            max-width: 600px;
+            margin: 0 auto;
+            padding: 20px 15px;
+            box-sizing: border-box;
+            position: relative;
+            z-index: 2;
+        }
+
+        .letter-content {
+            background: rgba(255, 255, 255, 0.1);
+            padding: 25px;
+            border-radius: 15px;
+            backdrop-filter: blur(8px);
+            line-height: 1.8;
+            font-size: 16px;
+        }
+
+        .hidden {
+            opacity: 0;
+            transform: translateY(30px);
+            transition: all 1s cubic-bezier(0.22, 0.61, 0.36, 1);
+            margin-bottom: 18px;
+        }
+
+        .visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        .signature {
+            text-align: right;
+            margin-top: 30px;
+            font-style: italic;
+            letter-spacing: 1px;
+        }
+
+        #music-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0,0,0,0.95);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            z-index: 9999;
+            -webkit-touch-callout: none;
+        }
+
+        #play-btn {
+            padding: 14px 45px;
+            background: #ff6b81;
+            border: none;
+            border-radius: 35px;
+            color: white;
+            font-size: 18px;
+            cursor: pointer;
+            transition: all 0.3s;
+            box-shadow: 0 4px 15px rgba(255,107,129,0.3);
+            border: 2px solid rgba(255,255,255,0.2);
+        }
+
+        @media (max-width: 480px) {
+            .letter-content {
+                padding: 18px;
+                font-size: 15px;
+                border-radius: 12px;
+            }
+            .heart {
+                font-size: 20px;
+            }
+            #play-btn {
+                padding: 12px 35px;
+                font-size: 16px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="stars" id="stars"></div>
+    <div id="music-overlay">
+        <button id="play-btn">🎵 点击播放音乐</button>
+    </div>
+
+    <div class="hearts" id="hearts"></div>
+    
+    <div class="container">
+        <div class="letter-content">
+            <div class="hidden">亲爱的晓琨：</div>
+            <div class="hidden">今天是情人节，是我们认识的第288天。</div>
+            <div class="hidden">我没有准备华丽的礼物，只想借着这个日子，把心里话好好说给你听。</div>
+            <div class="hidden">手机里存着的聊天记录、无数次连麦，还有你发来的一个个"哼"。你就像个"云端小霸王"，隔着屏幕都能闻到醋味，可每次深夜对你的想念，才惊觉自己早已把"等待见面"熬成了最甜的糖。</div>
+            <div class="hidden">这288天里，我们隔着屏幕浇灌爱情。</div>
+            <div class="hidden">晓琨，我承认网恋像在玻璃罐里种玫瑰。</div>
+            <div class="hidden">看不清你睫毛上到底有没有泪，碰不到你炸毛时翘起的发梢，甚至不敢细想如果我们见面时，你发现我笑起来的虎牙没有语音里好听怎么办。</div>
+            <div class="hidden">但今天我想说：</div>
+            <div class="hidden">▫ 会把微信地址改成"在天津离线充电"，每次修改都离你更近1%</div>
+            <div class="hidden">▫ 连麦时，学着记住你每次笑出声的秒数，见面时按这个频率挠你手心</div>
+            <div class="hidden">▫ 如果吵架，就启动"宇宙信号站"制度——等着你的电话，想你道歉，得到你的原谅</div>
+            <div class="hidden">等翻过山岗见面的那天，我要把攒了288天的"早安""晚安""我好想你"当面说给你听。</div>
+            <div class="hidden">情人节快乐，我的女孩。</div>
+            <div class="hidden signature">等你按下确认键的<br>林<br>2025年2月14日</div>
+        </div>
+    </div>
+
+    <audio id="bg-music" loop playsinline>
+        <source src="https://cdn.pixabay.com/audio/2023/10/12/audio_1b4c8d4d82.mp3" type="audio/mpeg">
+        <source src="https://files.freemusicarchive.org/storage-freemusicarchive-org/music/ccCommunity/Chad_Crouch/Arps/Chad_Crouch_-_Algorithms.mp3" type="audio/mpeg">
+    </audio>
+
+    <script>
+        const isIOS = /iPad|iPhone|iPod/.test(navigator.userAgent) && !window.MSStream;
+
+        document.addEventListener('DOMContentLoaded', () => {
+            // 初始化星空
+            const starsContainer = document.getElementById('stars');
+            for(let i = 0; i < 80; i++) {
+                const star = document.createElement('div');
+                star.className = 'star';
+                star.style.cssText = `
+                    left: ${Math.random()*100}%;
+                    top: ${Math.random()*100}%;
+                    animation-delay: ${Math.random()*2}s;
+                `;
+                starsContainer.appendChild(star);
+            }
+
+            // 心形雨动画
+            setInterval(() => {
+                const heart = document.createElement('div');
+                heart.className = 'heart';
+                heart.innerHTML = '❤';
+                heart.style.cssText = `
+                    left: ${Math.random()*100}%;
+                    animation-duration: ${5+Math.random()*5}s;
+                    font-size: ${20+Math.random()*15}px;
+                `;
+                document.getElementById('hearts').appendChild(heart);
+                setTimeout(() => heart.remove(), 6000);
+            }, 400);
+
+            // 音乐控制
+            const bgMusic = document.getElementById('bg-music');
+            const musicOverlay = document.getElementById('music-overlay');
+
+            // iOS音频初始化
+            if(isIOS) {
+                bgMusic.load();
+                document.addEventListener('touchstart', function initAudio() {
+                    bgMusic.play().then(() => {
+                        bgMusic.pause();
+                        bgMusic.currentTime = 0;
+                    });
+                    document.removeEventListener('touchstart', initAudio);
+                }, { once: true });
+            }
+
+            document.getElementById('play-btn').addEventListener('click', async () => {
+                try {
+                    await bgMusic.play();
+                    musicOverlay.style.display = 'none';
+                    
+                    // 文字动画
+                    const paragraphs = document.querySelectorAll('.hidden');
+                    let index = 0;
+                    const animateText = () => {
+                        if(index < paragraphs.length) {
+                            paragraphs[index].classList.add('visible');
+                            index++;
+                            setTimeout(animateText, 1500);
+                        }
+                    }
+                    animateText();
+                } catch(error) {
+                    let errorHTML = `
+                        <div style="color:#ff9999; text-align:center; padding:20px;">
+                            <h3 style="margin-bottom:15px;">❌ 播放失败</h3>
+                            <p>${error.message}</p>
+                    `;
+                    
+                    if(isIOS) {
+                        errorHTML += `
+                            <div style="margin:20px 0; font-size:14px;">
+                                <p>请检查：</p>
+                                <p>1. 侧边静音开关是否关闭</p>
+                                <p>2. 系统音量是否开启</p>
+                                <p>3. 网络连接是否正常</p>
+                            </div>
+                        `;
+                    }
+
+                    errorHTML += `
+                        <button onclick="window.location.reload()" 
+                            style="margin-top:15px; padding:12px 30px;
+                            background:#666; border:none; border-radius:25px;
+                            color:white; font-size:16px;">
+                            点击重试
+                        </button>
+                    </div>`;
+
+                    musicOverlay.innerHTML = errorHTML;
+                }
+            });
+
+            // 防止iOS双击缩放
+            let lastTouchTime = 0;
+            document.addEventListener('touchend', e => {
+                const now = Date.now();
+                if(now - lastTouchTime < 500) e.preventDefault();
+                lastTouchTime = now;
+            }, { passive: false });
+
+            // 屏幕旋转处理
+            window.addEventListener('orientationchange', () => {
+                window.requestAnimationFrame(() => {
+                    window.scrollTo(0, 0);
+                    setTimeout(() => window.location.reload(), 300);
+                });
+            });
+        });
+    </script>
+</body>
+</html>
