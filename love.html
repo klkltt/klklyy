@@ -2,87 +2,36 @@
 <html lang="zh-CN">
 <head>
     <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>给晓琨的第288次日落心动</title>
     <style>
-        /* 基础样式 */
         body {
             background: linear-gradient(135deg, #ff758c, #ff7eb3);
             min-height: 100vh;
-            padding: 20px;
+            padding: 15px;
             font-family: 'Microsoft Yahei', sans-serif;
             color: #fff;
             margin: 0;
-            overflow: hidden;
-            cursor: pointer;
+            overflow-x: hidden;
+            -webkit-tap-highlight-color: transparent;
         }
 
         .container {
             max-width: 600px;
             margin: 0 auto;
             position: relative;
-            padding-top: 100px;
             z-index: 2;
+            padding: 20px 15px;
         }
 
-        /* 心形雨动画 */
-        .hearts {
-            position: fixed;
-            width: 100%;
-            height: 100%;
-            top: 0;
-            left: 0;
-            pointer-events: none;
-            z-index: 1;
-        }
-
-        .heart {
-            position: absolute;
-            animation: fall linear infinite;
-            opacity: 0.7;
-        }
-
-        @keyframes fall {
-            0% { transform: translateY(-10vh) rotate(45deg); opacity: 0; }
-            100% { transform: translateY(110vh) rotate(45deg); opacity: 0.4; }
-        }
-
-        /* 信件内容 */
-        .letter-content {
-            background: rgba(255, 255, 255, 0.1);
-            padding: 30px;
-            border-radius: 15px;
-            backdrop-filter: blur(5px);
-            line-height: 1.8;
-            position: relative;
-        }
-
-        /* 文字动画 */
-        .hidden {
-            opacity: 0;
-            transform: translateY(20px);
-            transition: all 1s ease;
-            margin-bottom: 15px;
-        }
-
-        .visible {
-            opacity: 1;
-            transform: translateY(0);
-        }
-
-        /* 签名样式 */
-        .signature {
-            text-align: right;
-            margin-top: 30px;
-            font-style: italic;
-        }
-
-        /* 星空背景 */
+        /* 星空动画 */
         .stars {
             position: fixed;
             width: 100%;
             height: 100%;
             top: 0;
             left: 0;
+            pointer-events: none;
         }
 
         .star {
@@ -98,47 +47,69 @@
             50% { opacity: 1; }
         }
 
-        /* 音乐提示层 */
-        #music-overlay {
+        /* 心形雨 */
+        .hearts {
             position: fixed;
-            top: 0;
-            left: 0;
             width: 100%;
             height: 100%;
-            background: rgba(0,0,0,0.8);
-            color: white;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            z-index: 9999;
-            font-size: 1.2em;
+            top: 0;
+            left: 0;
+            pointer-events: none;
+            z-index: 1;
         }
 
-        /* 移动端适配 */
-        @media (max-width: 768px) {
-            .container {
-                padding: 20px;
-                padding-top: 80px;
-            }
+        .heart {
+            position: absolute;
+            animation: fall linear infinite;
+            opacity: 0.7;
+            font-size: 24px;
+        }
+
+        @keyframes fall {
+            0% { transform: translateY(-10vh) rotate(45deg); opacity: 0; }
+            100% { transform: translateY(110vh) rotate(45deg); opacity: 0.4; }
+        }
+
+        /* 信件内容 */
+        .letter-content {
+            background: rgba(255, 255, 255, 0.1);
+            padding: 20px;
+            border-radius: 12px;
+            backdrop-filter: blur(5px);
+            line-height: 1.6;
+            font-size: 16px;
+        }
+
+        .hidden {
+            opacity: 0;
+            transform: translateY(20px);
+            transition: all 1s ease;
+            margin-bottom: 12px;
+        }
+
+        .visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        .signature {
+            text-align: right;
+            margin-top: 30px;
+            font-style: italic;
+        }
+
+        @media (max-width: 480px) {
             .letter-content {
                 padding: 15px;
+                font-size: 15px;
             }
-            #music-overlay {
-                font-size: 1em;
-                padding: 20px;
+            .heart {
+                font-size: 20px;
             }
         }
     </style>
 </head>
 <body>
-    <div id="music-overlay">
-        <div style="text-align: center; padding: 20px;">
-            <h2>🎵 点击此处开启浪漫音乐</h2>
-            <p>请允许浏览器播放音频</p>
-            <p>（建议佩戴耳机体验）</p>
-        </div>
-    </div>
-
     <div class="stars" id="stars"></div>
     <div class="hearts" id="hearts"></div>
     
@@ -161,84 +132,82 @@
         </div>
     </div>
 
-    <!-- 背景音乐 -->
-    <audio id="bg-music" loop>
+    <audio id="bg-music" loop autoplay>
         <source src="https://cdn.pixabay.com/audio/2023/10/12/audio_1b4c8d4d82.mp3" type="audio/mpeg">
         <source src="https://files.freemusicarchive.org/storage-freemusicarchive-org/music/ccCommunity/Chad_Crouch/Arps/Chad_Crouch_-_Algorithms.mp3" type="audio/mpeg">
     </audio>
 
     <script>
-        // 创建背景动画
-        function createBackground() {
+        document.addEventListener('DOMContentLoaded', () => {
             // 创建星空
-            const starsContainer = document.getElementById('stars');
-            for (let i = 0; i < 100; i++) {
-                const star = document.createElement('div');
-                star.className = 'star';
-                star.style.left = `${Math.random() * 100}%`;
-                star.style.top = `${Math.random() * 100}%`;
-                star.style.animationDelay = `${Math.random() * 2}s`;
-                starsContainer.appendChild(star);
+            function createStars() {
+                const starsContainer = document.getElementById('stars');
+                for (let i = 0; i < 100; i++) {
+                    const star = document.createElement('div');
+                    star.className = 'star';
+                    star.style.left = `${Math.random() * 100}%`;
+                    star.style.top = `${Math.random() * 100}%`;
+                    star.style.animationDelay = `${Math.random() * 2}s`;
+                    starsContainer.appendChild(star);
+                }
             }
 
             // 创建心形雨
-            setInterval(() => {
-                const heart = document.createElement('div');
-                heart.className = 'heart';
-                heart.innerHTML = '❤';
-                heart.style.left = `${Math.random() * 100}%`;
-                heart.style.fontSize = `${20 + Math.random() * 20}px`;
-                heart.style.animationDuration = `${5 + Math.random() * 5}s`;
-                document.getElementById('hearts').appendChild(heart);
+            function createHearts() {
+                setInterval(() => {
+                    const heart = document.createElement('div');
+                    heart.className = 'heart';
+                    heart.innerHTML = '❤';
+                    heart.style.left = `${Math.random() * 100}%`;
+                    heart.style.animationDuration = `${5 + Math.random() * 5}s`;
+                    document.getElementById('hearts').appendChild(heart);
+                    setTimeout(() => heart.remove(), 6000);
+                }, 300);
+            }
 
-                // 自动移除
-                setTimeout(() => heart.remove(), 6000);
-            }, 300);
-        }
+            // 文字动画
+            function startTextAnimation() {
+                const paragraphs = document.querySelectorAll('.hidden');
+                let index = 0;
+                const timer = setInterval(() => {
+                    if (index < paragraphs.length) {
+                        paragraphs[index].classList.add('visible');
+                        index++;
+                    } else {
+                        clearInterval(timer);
+                    }
+                }, 1500);
+            }
 
-        // 主程序
-        document.addEventListener('DOMContentLoaded', () => {
-            createBackground();
-
-            // 文字逐显
-            const paragraphs = document.querySelectorAll('.hidden');
-            let index = 0;
-            const textTimer = setInterval(() => {
-                if (index < paragraphs.length) {
-                    paragraphs[index].classList.add('visible');
-                    index++;
-                } else {
-                    clearInterval(textTimer);
-                }
-            }, 1500);
-
-            // 音乐控制
-            const bgMusic = document.getElementById('bg-music');
-            const musicOverlay = document.getElementById('music-overlay');
-
-            // 点击页面激活音乐
-            document.body.addEventListener('click', () => {
-                bgMusic.play()
-                    .then(() => {
-                        musicOverlay.style.display = 'none';
-                    })
-                    .catch((error) => {
-                        musicOverlay.innerHTML = `
-                            <div style="color: #ff9999; padding: 20px;">
-                                <h3>🎶 需要您的授权</h3>
-                                <p>请点击浏览器地址栏的🎵图标</p>
-                                <p>允许音频播放后刷新页面</p>
-                            </div>
-                        `;
+            // 音乐自动播放
+            function initMusic() {
+                const bgMusic = document.getElementById('bg-music');
+                bgMusic.muted = false;
+                
+                // 尝试自动播放
+                const playPromise = bgMusic.play();
+                if (playPromise !== undefined) {
+                    playPromise.catch(() => {
+                        // 静默处理播放错误
                     });
-            }, { once: true });
-
-            // 10秒后自动隐藏提示
-            setTimeout(() => {
-                if (musicOverlay.style.display !== 'none') {
-                    musicOverlay.style.display = 'none';
                 }
-            }, 10000);
+
+                // 点击页面时尝试播放
+                document.body.addEventListener('click', () => {
+                    bgMusic.play().catch(() => {});
+                }, { once: true });
+            }
+
+            // 初始化
+            createStars();
+            createHearts();
+            startTextAnimation();
+            initMusic();
+
+            // 处理屏幕旋转
+            window.addEventListener('orientationchange', () => {
+                window.location.reload();
+            });
         });
     </script>
 </body>
