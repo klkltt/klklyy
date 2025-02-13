@@ -1,0 +1,244 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>给薇薇的第27次日落心动</title>
+    <style>
+        /* 保持原有所有样式不变 */
+        .stars {
+            position: fixed;
+            width: 100%;
+            height: 100%;
+            top: 0;
+            left: 0;
+            pointer-events: none;
+            z-index: 0;
+        }
+
+        .star {
+            position: absolute;
+            width: 2px;
+            height: 2px;
+            background: rgba(255,255,255,0.8);
+            animation: twinkle 2s infinite;
+        }
+
+        @keyframes twinkle {
+            0%, 100% { opacity: 0.2; }
+            50% { opacity: 1; }
+        }
+
+        body {
+            background: linear-gradient(135deg, #ff758c, #ff7eb3);
+            min-height: 100vh;
+            padding: 15px;
+            font-family: -apple-system, BlinkMacSystemFont, 'Microsoft Yahei', sans-serif;
+            color: #fff;
+            margin: 0;
+            overflow-x: hidden;
+            -webkit-tap-highlight-color: transparent;
+        }
+
+        .container {
+            width: 100%;
+            padding: 20px 15px;
+            box-sizing: border-box;
+            position: relative;
+            z-index: 2;
+        }
+
+        .hearts {
+            position: fixed;
+            width: 100%;
+            height: 100%;
+            top: 0;
+            left: 0;
+            pointer-events: none;
+            z-index: 1;
+        }
+
+        .heart {
+            position: absolute;
+            animation: fall linear infinite;
+            opacity: 0.7;
+            font-size: 24px;
+        }
+
+        @keyframes fall {
+            0% { transform: translateY(-10vh) rotate(45deg); opacity: 0; }
+            100% { transform: translateY(110vh) rotate(45deg); opacity: 0.4; }
+        }
+
+        .letter-content {
+            background: rgba(255, 255, 255, 0.1);
+            padding: 20px;
+            border-radius: 12px;
+            backdrop-filter: blur(5px);
+            line-height: 1.6;
+            font-size: 16px;
+        }
+
+        .hidden {
+            opacity: 0;
+            transform: translateY(20px);
+            transition: all 1s ease;
+            margin-bottom: 12px;
+        }
+
+        .visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        #music-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0,0,0,0.9);
+            color: white;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            z-index: 9999;
+            text-align: center;
+            padding: 20px;
+            box-sizing: border-box;
+        }
+
+        @media (max-width: 480px) {
+            .letter-content {
+                padding: 15px;
+                font-size: 15px;
+            }
+            .heart {
+                font-size: 20px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="stars" id="stars"></div>
+    <div id="music-overlay">
+        <div>
+            <button id="play-btn" 
+                style="margin-top:20px; padding:12px 30px; 
+                background:#ff6b81; border:none; border-radius:30px; 
+                color:white; font-size:16px;">
+                🎵 点击播放音乐
+            </button>
+        </div>
+    </div>
+
+    <div class="hearts" id="hearts"></div>
+    
+    <div class="container">
+        <div class="letter-content">
+            <div class="hidden">亲爱的薇薇：</div>
+            <div class="hidden">当街角的咖啡杯晕开第27个奶泡时，我忽然发现生活这本诗集里，你才是所有韵脚的归处。</div>
+            <div class="hidden">你总说喜欢看我把书架理成彩虹的模样，却不知道自你踏进我的世界那日，所有星辰都学会了重新排列组合。</div>
+            <div class="hidden">情人节的花束不该只有玫瑰，我想送你一整个春天的隐喻——</div>
+            <div class="hidden">你低头时垂落的碎发是茉莉在月下舒展，</div>
+            <div class="hidden">你笑起来的虎牙是咬住阳光的栀子花瓣，</div>
+            <div class="hidden">而你不经意哼走调的歌谣，恰是唤醒二月荒原的季风。</div>
+            <div class="hidden">此刻城市的霓虹正在玻璃窗上练习情诗，</div>
+            <div class="hidden">我收集了365天零5小时的心跳声，终于能对你说：</div>
+            <div class="hidden">你让每个平凡的日子都长出羽翼，连空气都变得甜糯绵长。</div>
+            <div class="hidden">往后每个晨昏，请允许我继续做你专属的造梦者，</div>
+            <div class="hidden">在世俗的褶皱里为你种满星光，</div>
+            <div class="hidden">用掌纹的温度焐热所有未眠的夜晚。</div>
+            <div class="hidden">这个情人节，我不要转瞬即逝的烟火，</div>
+            <div class="hidden">只想要你睫毛上栖息的永恒。</div>
+            <div class="hidden signature">你愿意把手放进我的口袋，<br>让我们的影子在路灯下<br>跳完这场永不散场的圆舞曲吗？<br><br>永远爱你的<br>XXX<br>2024年2月14日</div>
+        </div>
+    </div>
+
+    <audio id="bg-music" loop>
+        <source src="https://cdn.pixabay.com/audio/2023/10/12/audio_1b4c8d4d82.mp3" type="audio/mpeg">
+        <source src="https://files.freemusicarchive.org/storage-freemusicarchive-org/music/ccCommunity/Chad_Crouch/Arps/Chad_Crouch_-_Algorithms.mp3" type="audio/mpeg">
+    </audio>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            // 创建星空动画
+            function createStars() {
+                const starsContainer = document.getElementById('stars');
+                for (let i = 0; i < 100; i++) {
+                    const star = document.createElement('div');
+                    star.className = 'star';
+                    star.style.left = `${Math.random() * 100}%`;
+                    star.style.top = `${Math.random() * 100}%`;
+                    star.style.animationDelay = `${Math.random() * 2}s`;
+                    starsContainer.appendChild(star);
+                }
+            }
+
+            // 创建心形雨
+            function createHearts() {
+                setInterval(() => {
+                    const heart = document.createElement('div');
+                    heart.className = 'heart';
+                    heart.innerHTML = '❤';
+                    heart.style.left = `${Math.random() * 100}%`;
+                    heart.style.animationDuration = `${5 + Math.random() * 5}s`;
+                    document.getElementById('hearts').appendChild(heart);
+                    setTimeout(() => heart.remove(), 6000);
+                }, 300);
+            }
+
+            // 文字动画
+            function startTextAnimation() {
+                const paragraphs = document.querySelectorAll('.hidden');
+                let index = 0;
+                const timer = setInterval(() => {
+                    if (index < paragraphs.length) {
+                        paragraphs[index].classList.add('visible');
+                        index++;
+                    } else {
+                        clearInterval(timer);
+                    }
+                }, 1500);
+            }
+
+            // 音乐控制
+            const bgMusic = document.getElementById('bg-music');
+            const musicOverlay = document.getElementById('music-overlay');
+            const playBtn = document.getElementById('play-btn');
+
+            // 点击播放按钮
+            playBtn.addEventListener('click', () => {
+                bgMusic.play()
+                    .then(() => {
+                        musicOverlay.style.display = 'none';
+                        startTextAnimation();
+                    })
+                    .catch((error) => {
+                        musicOverlay.innerHTML = `
+                            <div>
+                                <h2 style="color: #ff9999; margin-bottom: 20px;">❌ 播放失败</h2>
+                                <p>请检查网络连接后刷新页面</p>
+                                <button onclick="window.location.reload()" 
+                                    style="margin-top:20px; padding:12px 30px; 
+                                    background:#666; border:none; border-radius:30px; 
+                                    color:white; font-size:16px;">
+                                    点击刷新
+                                </button>
+                            </div>
+                        `;
+                    });
+            });
+
+            // 初始化动画
+            createStars();
+            createHearts();
+
+            // 处理屏幕旋转
+            window.addEventListener('orientationchange', () => {
+                window.location.reload();
+            });
+        });
+    </script>
+</body>
+</html>
