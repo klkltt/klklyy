@@ -4,6 +4,7 @@
     <meta charset="UTF-8">
     <title>给晓琨的第288次日落心动</title>
     <style>
+        /* 基础样式 */
         body {
             background: linear-gradient(135deg, #ff758c, #ff7eb3);
             min-height: 100vh;
@@ -12,6 +13,7 @@
             color: #fff;
             margin: 0;
             overflow: hidden;
+            cursor: pointer;
         }
 
         .container {
@@ -44,6 +46,7 @@
             100% { transform: translateY(110vh) rotate(45deg); opacity: 0.4; }
         }
 
+        /* 信件内容 */
         .letter-content {
             background: rgba(255, 255, 255, 0.1);
             padding: 30px;
@@ -53,6 +56,7 @@
             position: relative;
         }
 
+        /* 文字动画 */
         .hidden {
             opacity: 0;
             transform: translateY(20px);
@@ -65,13 +69,14 @@
             transform: translateY(0);
         }
 
+        /* 签名样式 */
         .signature {
             text-align: right;
             margin-top: 30px;
             font-style: italic;
         }
 
-        /* 星光背景 */
+        /* 星空背景 */
         .stars {
             position: fixed;
             width: 100%;
@@ -93,6 +98,22 @@
             50% { opacity: 1; }
         }
 
+        /* 音乐提示层 */
+        #music-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0,0,0,0.8);
+            color: white;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            z-index: 9999;
+            font-size: 1.2em;
+        }
+
         /* 移动端适配 */
         @media (max-width: 768px) {
             .container {
@@ -100,12 +121,24 @@
                 padding-top: 80px;
             }
             .letter-content {
+                padding: 15px;
+            }
+            #music-overlay {
+                font-size: 1em;
                 padding: 20px;
             }
         }
     </style>
 </head>
 <body>
+    <div id="music-overlay">
+        <div style="text-align: center; padding: 20px;">
+            <h2>🎵 点击此处开启浪漫音乐</h2>
+            <p>请允许浏览器播放音频</p>
+            <p>（建议佩戴耳机体验）</p>
+        </div>
+    </div>
+
     <div class="stars" id="stars"></div>
     <div class="hearts" id="hearts"></div>
     
@@ -128,17 +161,16 @@
         </div>
     </div>
 
-    <!-- 背景音乐（已配置双外链） -->
-    <audio id="bg-music" loop autoplay>
-       <source src="https://cdn.pixabay.com/audio/2023/08/18/audio_0a2d2d8c3c.mp3">
-<source src="https://files.freemusicarchive.org/storage-freemusicarchive-org/music/ccCommunity/Chad_Crouch/Arps/Chad_Crouch_-_Algorithms.mp3">
-
+    <!-- 背景音乐 -->
+    <audio id="bg-music" loop>
+        <source src="https://cdn.pixabay.com/audio/2023/10/12/audio_1b4c8d4d82.mp3" type="audio/mpeg">
+        <source src="https://files.freemusicarchive.org/storage-freemusicarchive-org/music/ccCommunity/Chad_Crouch/Arps/Chad_Crouch_-_Algorithms.mp3" type="audio/mpeg">
     </audio>
 
     <script>
         // 创建背景动画
         function createBackground() {
-            // 创建星星
+            // 创建星空
             const starsContainer = document.getElementById('stars');
             for (let i = 0; i < 100; i++) {
                 const star = document.createElement('div');
@@ -159,40 +191,54 @@
                 heart.style.animationDuration = `${5 + Math.random() * 5}s`;
                 document.getElementById('hearts').appendChild(heart);
 
+                // 自动移除
                 setTimeout(() => heart.remove(), 6000);
             }, 300);
         }
 
-        // 文字逐显动画
+        // 主程序
         document.addEventListener('DOMContentLoaded', () => {
             createBackground();
-            
+
+            // 文字逐显
             const paragraphs = document.querySelectorAll('.hidden');
             let index = 0;
-            
-            const timer = setInterval(() => {
+            const textTimer = setInterval(() => {
                 if (index < paragraphs.length) {
                     paragraphs[index].classList.add('visible');
                     index++;
                 } else {
-                    clearInterval(timer);
+                    clearInterval(textTimer);
                 }
             }, 1500);
 
-            // 音乐自动播放处理
+            // 音乐控制
             const bgMusic = document.getElementById('bg-music');
-            const playMusic = () => {
-                bgMusic.play().catch(() => {
-                    document.body.addEventListener('click', () => {
-                        bgMusic.play();
-                        document.body.style.cursor = 'default';
-                    }, { once: true });
-                    document.body.style.cursor = 'pointer';
-                });
-            }
-            
-            // 等待1秒加载音乐
-            setTimeout(playMusic, 1000);
+            const musicOverlay = document.getElementById('music-overlay');
+
+            // 点击页面激活音乐
+            document.body.addEventListener('click', () => {
+                bgMusic.play()
+                    .then(() => {
+                        musicOverlay.style.display = 'none';
+                    })
+                    .catch((error) => {
+                        musicOverlay.innerHTML = `
+                            <div style="color: #ff9999; padding: 20px;">
+                                <h3>🎶 需要您的授权</h3>
+                                <p>请点击浏览器地址栏的🎵图标</p>
+                                <p>允许音频播放后刷新页面</p>
+                            </div>
+                        `;
+                    });
+            }, { once: true });
+
+            // 10秒后自动隐藏提示
+            setTimeout(() => {
+                if (musicOverlay.style.display !== 'none') {
+                    musicOverlay.style.display = 'none';
+                }
+            }, 10000);
         });
     </script>
 </body>
