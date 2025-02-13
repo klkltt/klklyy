@@ -1,0 +1,199 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <title>给晓琨的第288次日落心动</title>
+    <style>
+        body {
+            background: linear-gradient(135deg, #ff758c, #ff7eb3);
+            min-height: 100vh;
+            padding: 20px;
+            font-family: 'Microsoft Yahei', sans-serif;
+            color: #fff;
+            margin: 0;
+            overflow: hidden;
+        }
+
+        .container {
+            max-width: 600px;
+            margin: 0 auto;
+            position: relative;
+            padding-top: 100px;
+            z-index: 2;
+        }
+
+        /* 心形雨动画 */
+        .hearts {
+            position: fixed;
+            width: 100%;
+            height: 100%;
+            top: 0;
+            left: 0;
+            pointer-events: none;
+            z-index: 1;
+        }
+
+        .heart {
+            position: absolute;
+            animation: fall linear infinite;
+            opacity: 0.7;
+        }
+
+        @keyframes fall {
+            0% { transform: translateY(-10vh) rotate(45deg); opacity: 0; }
+            100% { transform: translateY(110vh) rotate(45deg); opacity: 0.4; }
+        }
+
+        .letter-content {
+            background: rgba(255, 255, 255, 0.1);
+            padding: 30px;
+            border-radius: 15px;
+            backdrop-filter: blur(5px);
+            line-height: 1.8;
+            position: relative;
+        }
+
+        .hidden {
+            opacity: 0;
+            transform: translateY(20px);
+            transition: all 1s ease;
+            margin-bottom: 15px;
+        }
+
+        .visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        .signature {
+            text-align: right;
+            margin-top: 30px;
+            font-style: italic;
+        }
+
+        /* 星光背景 */
+        .stars {
+            position: fixed;
+            width: 100%;
+            height: 100%;
+            top: 0;
+            left: 0;
+        }
+
+        .star {
+            position: absolute;
+            width: 2px;
+            height: 2px;
+            background: rgba(255,255,255,0.8);
+            animation: twinkle 2s infinite;
+        }
+
+        @keyframes twinkle {
+            0%, 100% { opacity: 0.2; }
+            50% { opacity: 1; }
+        }
+
+        /* 移动端适配 */
+        @media (max-width: 768px) {
+            .container {
+                padding: 20px;
+                padding-top: 80px;
+            }
+            .letter-content {
+                padding: 20px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="stars" id="stars"></div>
+    <div class="hearts" id="hearts"></div>
+    
+    <div class="container">
+        <div class="letter-content">
+            <div class="hidden">亲爱的晓琨：</div>
+            <div class="hidden">今天是情人节，是我们认识的第288天。</div>
+            <div class="hidden">我没有准备华丽的礼物，只想借着这个日子，把心里话好好说给你听。</div>
+            <div class="hidden">手机里存着的聊天记录、无数次连麦，还有你发来的一个个"哼"。你就像个"云端小霸王"，隔着屏幕都能闻到醋味，可每次深夜对你的想念，才惊觉自己早已把"等待见面"熬成了最甜的糖。</div>
+            <div class="hidden">这288天里，我们隔着屏幕浇灌爱情。</div>
+            <div class="hidden">晓琨，我承认网恋像在玻璃罐里种玫瑰。</div>
+            <div class="hidden">看不清你睫毛上到底有没有泪，碰不到你炸毛时翘起的发梢，甚至不敢细想如果我们见面时，你发现我笑起来的虎牙没有语音里好听怎么办。</div>
+            <div class="hidden">但今天我想说：</div>
+            <div class="hidden">▫ 会把微信地址改成"在天津离线充电"，每次修改都离你更近1%</div>
+            <div class="hidden">▫ 连麦时，学着记住你每次笑出声的秒数，见面时按这个频率挠你手心</div>
+            <div class="hidden">▫ 如果吵架，就启动"宇宙信号站"制度——等着你的电话，想你道歉，得到你的原谅</div>
+            <div class="hidden">等翻过山岗见面的那天，我要把攒了288天的"早安""晚安""我好想你"当面说给你听。</div>
+            <div class="hidden">情人节快乐，我的女孩。</div>
+            <div class="hidden signature">等你按下确认键的<br>林<br>2025年2月14日</div>
+        </div>
+    </div>
+
+    <!-- 背景音乐（已配置双外链） -->
+    <audio id="bg-music" loop autoplay>
+       <source src="https://cdn.pixabay.com/audio/2023/08/18/audio_0a2d2d8c3c.mp3">
+<source src="https://files.freemusicarchive.org/storage-freemusicarchive-org/music/ccCommunity/Chad_Crouch/Arps/Chad_Crouch_-_Algorithms.mp3">
+
+    </audio>
+
+    <script>
+        // 创建背景动画
+        function createBackground() {
+            // 创建星星
+            const starsContainer = document.getElementById('stars');
+            for (let i = 0; i < 100; i++) {
+                const star = document.createElement('div');
+                star.className = 'star';
+                star.style.left = `${Math.random() * 100}%`;
+                star.style.top = `${Math.random() * 100}%`;
+                star.style.animationDelay = `${Math.random() * 2}s`;
+                starsContainer.appendChild(star);
+            }
+
+            // 创建心形雨
+            setInterval(() => {
+                const heart = document.createElement('div');
+                heart.className = 'heart';
+                heart.innerHTML = '❤';
+                heart.style.left = `${Math.random() * 100}%`;
+                heart.style.fontSize = `${20 + Math.random() * 20}px`;
+                heart.style.animationDuration = `${5 + Math.random() * 5}s`;
+                document.getElementById('hearts').appendChild(heart);
+
+                setTimeout(() => heart.remove(), 6000);
+            }, 300);
+        }
+
+        // 文字逐显动画
+        document.addEventListener('DOMContentLoaded', () => {
+            createBackground();
+            
+            const paragraphs = document.querySelectorAll('.hidden');
+            let index = 0;
+            
+            const timer = setInterval(() => {
+                if (index < paragraphs.length) {
+                    paragraphs[index].classList.add('visible');
+                    index++;
+                } else {
+                    clearInterval(timer);
+                }
+            }, 1500);
+
+            // 音乐自动播放处理
+            const bgMusic = document.getElementById('bg-music');
+            const playMusic = () => {
+                bgMusic.play().catch(() => {
+                    document.body.addEventListener('click', () => {
+                        bgMusic.play();
+                        document.body.style.cursor = 'default';
+                    }, { once: true });
+                    document.body.style.cursor = 'pointer';
+                });
+            }
+            
+            // 等待1秒加载音乐
+            setTimeout(playMusic, 1000);
+        });
+    </script>
+</body>
+</html>
